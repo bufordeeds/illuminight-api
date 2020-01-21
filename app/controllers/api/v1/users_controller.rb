@@ -9,7 +9,16 @@ class Api::V1::UsersController < ApplicationController
   end
   def create
     @user = User.create(user_params)
-    render json: @user
+    if @user.id
+      render json: {
+        id: @user.id,
+        username: @user.username
+      }
+    else
+      render json: {
+        message: @user.errors.messages
+      }, status: :conflict
+    end
   end
   def update
     if @user.update(user_params)
@@ -24,8 +33,10 @@ class Api::V1::UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
   end
-  def user_params()
-    params.require(:user).permit(:username)
+  def user_params
+    params.require('user').permit(:username, :password)
   end
+
+  # Parameters: {"user"=>{"userObject"=>{"username"=>"Buford ", "password"=>"[FILTERED]"}}}
 
 end
