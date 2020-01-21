@@ -37,6 +37,26 @@ class Api::V1::UsersController < ApplicationController
     params.require('user').permit(:username, :password)
   end
 
-  # Parameters: {"user"=>{"userObject"=>{"username"=>"Buford ", "password"=>"[FILTERED]"}}}
+  def login
+    user = User.find_by(username: params['user']['username'])
+    authedEh = user.try(:authenticate, params['user']['password'])
 
+    if !user
+      render json: {
+        key: 'username',
+        message: 'No user can be found with that Username'
+      }, status: :forbidden
+    elsif !authedEh
+      render json: {
+        key: 'password',
+        message: 'Incorrect Password'
+      }, status: :forbidden
+    else
+      render json: {
+        id: user.id,
+        username: user.username
+      }
+      # @TODO: create a session
+    end
+  end
 end
