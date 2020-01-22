@@ -9,13 +9,13 @@
 # yining = User.create(username: 'Yining')
 # buford = User.create(username: 'Buford')
 
-yining = User.find_by(username: "Yining")
+# yining = User.find_by(username: "Yining")
 
-game2 = Game.create(
-      clicks: 4,
-      time: 5,
-      score: 90,
-      level: 1
-) 
+# game2 = Game.create(
+#       clicks: 4,
+#       time: 5,
+#       score: 90,
+#       level: 1
+# ) 
 
-yining.games << game2
+# yining.games << game2
