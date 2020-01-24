@@ -25,6 +25,6 @@ class Api::V1::GamesController < ApplicationController
     @game = Game.find(params[:id])
   end
   def game_params()
-    params.require(:game).permit(:user_id, :clicks, :time, :level, :score)
+    params.require(:game).permit(:user_id, :username, :clicks, :time, :level, :score)
   end
 end
