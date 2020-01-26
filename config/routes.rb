@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root :to => 'static#home'
+  root :to => 'users#index'
   
   namespace :api do
     namespace :v1 do
@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       # resources :users, only: [:show]
       resources :games
       resources :sessions, only: [:create, :destroy]
-      root to:'static#home'
+      # root to:'static#home'
     end
   end
 
