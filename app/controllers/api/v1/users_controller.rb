@@ -43,28 +43,28 @@ class Api::V1::UsersController < ApplicationController
   
   def login
     user = User.find_by(username: params['user']['username'])
-    authedEh = user.try(:authenticate, params['user']['password'])
+    isAuthed = user.try(:authenticate, params['user']['password'])
     
     if !user
       render json: {
         key: 'username',
         message: 'No user can be found with that Username'
         }, status: :forbidden
-      elsif !authedEh
+      elsif !isAuthed
         render json: {
           key: 'password',
           message: 'Incorrect Password'
           }, status: :forbidden
-        else
-          session[:user_id] = user.id
-          render json: {
-            id: user.id,
-            username: user.username,
-            session: session
-          }
-          # byebug
-        end
-      end
+      else
+        session[:user_id] = user.id
+        render json: {
+          id: user.id,
+          username: user.username,
+          session: session
+        }
+        # byebug
+    end
+  end
 
       private
       def user_params

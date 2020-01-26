@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  root :to => 'static#home'
   
   namespace :api do
     namespace :v1 do
